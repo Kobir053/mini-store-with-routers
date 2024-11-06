@@ -6,14 +6,16 @@ interface ProductProps {
   product: IProduct;
   addToCart: () => void;
   isInCart: boolean;
+  btnText: string;
+  removeFromCart: () => void;
 }
 
-const Product: React.FC<ProductProps> = ({ product, addToCart, isInCart }) => {
+const Product: React.FC<ProductProps> = ({ product, addToCart, isInCart, btnText, removeFromCart }) => {
   return (
     <div className='product'>
         <h2>{product.name}</h2>
         <h2>{product.price}$</h2>
-        {!isInCart && <button onClick={addToCart}>Add To Cart</button>}
+        <button onClick={isInCart? removeFromCart: addToCart}>{btnText}</button>
     </div>
   )
 }

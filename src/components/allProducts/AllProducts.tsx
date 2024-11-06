@@ -11,12 +11,12 @@ interface AllProductsProps {
 
 const AllProducts: React.FC<AllProductsProps> = ({ products, isInCart }) => {
 
-  const {addProductToCart} = useGlobalStore();
+  const {addProductToCart, removeProductFromCart} = useGlobalStore();
 
   const renderProducts = () => {
     if(products.length == 0) return;
     return products.map((product: IProduct, index: number) => {
-      return <Product product={product} addToCart={() => addProductToCart(product)} key={index} isInCart={isInCart}/>
+      return <Product product={product} addToCart={() => addProductToCart(product)} key={index} isInCart={isInCart} btnText={isInCart? "Remove From Cart": "Add To Cart"} removeFromCart={() => removeProductFromCart(index)}/>
     })
   }
 

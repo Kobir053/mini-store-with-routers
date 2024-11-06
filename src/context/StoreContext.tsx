@@ -11,13 +11,15 @@ interface StoreContextProps {
     cartProducts: IProduct[];
     setCartProducts: (products: IProduct[]) => void;
     addProductToCart: (product: IProduct) => void;
+    removeProductFromCart: (index: number) => void;
 }
 
 const StoreContext = createContext<StoreContextProps>({
     products: [],
     cartProducts: [],
     setCartProducts: () => {},
-    addProductToCart: () => {}
+    addProductToCart: () => {},
+    removeProductFromCart: () => {}
 });
 
 const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
@@ -29,8 +31,14 @@ const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
         setCartProducts((prev) => [...prev, product]);
     }
 
+    const removeProductFromCart = (index: number) => {
+        const tempArr = [...cartProducts];
+        tempArr.splice(index, 1);
+        setCartProducts([...tempArr]);
+    }
+
     return (
-        <StoreContext.Provider value={{products, cartProducts, setCartProducts, addProductToCart}}>
+        <StoreContext.Provider value={{products, cartProducts, setCartProducts, addProductToCart, removeProductFromCart}}>
             {children}
         </StoreContext.Provider>
     )
